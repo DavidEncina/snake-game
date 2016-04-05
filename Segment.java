@@ -71,4 +71,21 @@ public class Segment
         lienzo.erase();
     }
     
+    /**
+     * Devuelve la coordenada inicial en el eje horizontal del segmento
+     */
+    public int getPosicionInicialX()
+    {
+        return posicionX;
+    }
+    
+    /**
+     * Devuelve la coordenada inicial en el eje vertical del segmento
+     */
+    public int getPosicionInicialY()
+    {
+        return posicionY;
+    }
+    
+    
 }
