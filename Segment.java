@@ -87,5 +87,35 @@ public class Segment
         return posicionY;
     }
     
+    /**
+     * Devuelve la coordenada final en el eje horizontal del segmento
+     */
+    public int getPosicionFinalX()
+    {
+        int posicionFinalX = 0;
+        if (direccion == IZQUIERDA) {
+            posicionFinalX = posicionX - LONGITUD_SEGMENTO;
+        }
+        else {
+            posicionFinalX = posicionX + LONGITUD_SEGMENTO;
+        }
+        return posicionFinalX;
+    }
+    
+    /**
+     * Devuelve la coordenada final en el eje vertical del segmento
+     */
+    public int getPosicionFinalY()
+    {
+        int posicionFinalY = 0;
+        if (direccion == ARRIBA) {
+            posicionFinalY = posicionY - LONGITUD_SEGMENTO;
+        }
+        else {
+            posicionFinalY = posicionY + LONGITUD_SEGMENTO;
+        }
+        return posicionFinalY;
+    }
+    
     
 }
