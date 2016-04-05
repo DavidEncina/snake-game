@@ -31,7 +31,7 @@ public class Segment
     /**
      * Constructor for objects of class Segment
      */
-    public Segment(int posicionX, int posicionY, int direccion, Color color)
+    public Segment(int posicionX, int posicionY, int direccion)
     {
         this.posicionX = posicionX;
         this.posicionY = posicionY;
@@ -39,5 +39,28 @@ public class Segment
         color = Color.BLACK;
     }
 
-
+    /**
+     * Dibuja el segmento en un lienzo
+     */
+    public void dibujar(Canvas lienzo)
+    {
+        lienzo.setForegroundColor(color);
+        
+        if (direccion == DERECHA) {
+            lienzo.drawLine(posicionX, posicionY, posicionX + LONGITUD_SEGMENTO, posicionY);
+        }
+        
+        if (direccion == IZQUIERDA) {
+            lienzo.drawLine(posicionX, posicionY, posicionX - LONGITUD_SEGMENTO, posicionY);
+        }
+        
+        if (direccion == ABAJO) {
+            lienzo.drawLine(posicionX, posicionY, posicionX, posicionY + LONGITUD_SEGMENTO);
+        }
+        
+        if (direccion == ARRIBA) {
+            lienzo.drawLine(posicionX, posicionY, posicionX, posicionY - LONGITUD_SEGMENTO);
+        }
+    }
+    
 }
