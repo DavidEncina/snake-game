@@ -117,5 +117,13 @@ public class Segment
         return posicionFinalY;
     }
     
+    /**
+     * Devuelve la direccion del segmento
+     */
+    public int getDireccion()
+    {
+        return direccion * DIFERENCIA_DE_GRADOS_ENTRE_DIRECCIONES;
+    }
+    
     
 }
