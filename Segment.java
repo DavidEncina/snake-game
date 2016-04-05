@@ -125,5 +125,15 @@ public class Segment
         return direccion * DIFERENCIA_DE_GRADOS_ENTRE_DIRECCIONES;
     }
     
-    
+    /**
+     * Para saber si el segmento colisiona o no con otro segmento
+     */
+    public boolean colisionaCon(Segment segmento)
+    {
+        boolean siColisiona = false;
+        if (getPosicionFinalX() == segmento.posicionX && getPosicionFinalY() == segmento.posicionY) {
+            siColisiona = true;
+        }
+        return siColisiona;
+    }
 }
