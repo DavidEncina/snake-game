@@ -63,4 +63,12 @@ public class Segment
         }
     }
     
+    /**
+     * Borra el lienzo
+     */
+    public void borrar(Canvas lienzo)
+    {
+        lienzo.erase();
+    }
+    
 }
