@@ -1,139 +1,131 @@
-import java.awt.*;
-import java.awt.geom.*;
+import java.awt.Color;
 
 /**
  * Write a description of class Segment here.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Miguel Bayon
+ * @version 1.0
  */
 public class Segment
 {
-    // Almacena la longitud de un segmento
-    public static int LONGITUD_SEGMENTO = 50;
-    // Almacena la coordenada inicial en el eje horizontal del segmento
     private int posicionX;
-    // Almacena la coordenada inicial en el eje vertical del segmento
-    private int posicionY;    
-    // Almacena el color del segmento
-    private Color color;
-    // Almacena en lienzo donde se va a dibujar el segmento
-    private Canvas lienzo;
-    // Almacena en que direccionse va a dibujar el segmento. Se corresponden con 0, 1, 2 y 3
+    private int posicionY;
     private int direccion;
-    public final static int DERECHA = 0;
-    public final static int ABAJO = 1;
-    public final static int IZQUIERDA = 2;
-    public final static int ARRIBA = 3;
-    // Almacena la diferencia en grados que tienen todas las direcciones posibles
-    private static final int DIFERENCIA_DE_GRADOS_ENTRE_DIRECCIONES = 90;
-
-    /**
-     * Constructor for objects of class Segment
+    private Color color;
+    public static final int LONGITUD_SEGMENTO = 10;
+    
+    /*
+     * Constructor de la clase Segment
      */
-    public Segment(int posicionX, int posicionY, int direccion)
+    public Segment(int posX, int posY, int direccion, Color color)
     {
-        this.posicionX = posicionX;
-        this.posicionY = posicionY;
+        posicionX = posX;
+        posicionY = posY;
         this.direccion = direccion;
-        color = Color.BLACK;
+        this.color = color;
     }
-
-    /**
-     * Dibuja el segmento en un lienzo
+    
+    /*
+     * Devuelve la coordenada del eje X donde acaba el segmento
+     */
+    public int getPosicionFinalX()
+    {
+        int posicionFinalX = posicionX;
+        if (direccion == 0) {
+            posicionFinalX += LONGITUD_SEGMENTO;
+        } 
+        else if (direccion == 180) {
+            posicionFinalX -= LONGITUD_SEGMENTO;
+        }
+        return posicionFinalX;
+    }
+    
+    /*
+     * Devuelve la coordenada del eje Y donde acaba el segmento
+     */
+    public int getPosicionFinalY()
+    {
+        int posicionFinalY = posicionY;
+        if (direccion == 90) {
+            posicionFinalY += LONGITUD_SEGMENTO;
+        }
+        else if (direccion == 270) {
+            posicionFinalY -= LONGITUD_SEGMENTO;
+        }
+        return posicionFinalY;
+    }
+    
+    /*
+     * Dibuja el segmento en el lienzo
      */
     public void dibujar(Canvas lienzo)
     {
         lienzo.setForegroundColor(color);
-        
-        if (direccion == DERECHA) {
-            lienzo.drawLine(posicionX, posicionY, posicionX + LONGITUD_SEGMENTO, posicionY);
-        }
-        
-        if (direccion == IZQUIERDA) {
-            lienzo.drawLine(posicionX, posicionY, posicionX - LONGITUD_SEGMENTO, posicionY);
-        }
-        
-        if (direccion == ABAJO) {
-            lienzo.drawLine(posicionX, posicionY, posicionX, posicionY + LONGITUD_SEGMENTO);
-        }
-        
-        if (direccion == ARRIBA) {
-            lienzo.drawLine(posicionX, posicionY, posicionX, posicionY - LONGITUD_SEGMENTO);
-        }
+        lienzo.drawLine(posicionX, posicionY, getPosicionFinalX(), getPosicionFinalY());
     }
     
-    /**
-     * Borra el lienzo
+    /*
+     * Borra el segmento del lienzo
      */
     public void borrar(Canvas lienzo)
     {
-        lienzo.erase();
+        lienzo.setForegroundColor(Color.WHITE);
+        lienzo.drawLine(posicionX, posicionY, getPosicionFinalX(), getPosicionFinalY());
     }
     
-    /**
-     * Devuelve la coordenada inicial en el eje horizontal del segmento
+    /*
+     * Devuelve la coordenada del eje X donde empieza el segmento
      */
     public int getPosicionInicialX()
     {
         return posicionX;
     }
     
-    /**
-     * Devuelve la coordenada inicial en el eje vertical del segmento
+    /*
+     * Devuelve la coordenada del eje Y donde empieza el segmento
      */
     public int getPosicionInicialY()
     {
         return posicionY;
-    }
+    }    
     
-    /**
-     * Devuelve la coordenada final en el eje horizontal del segmento
-     */
-    public int getPosicionFinalX()
-    {
-        int posicionFinalX = 0;
-        if (direccion == IZQUIERDA) {
-            posicionFinalX = posicionX - LONGITUD_SEGMENTO;
-        }
-        else {
-            posicionFinalX = posicionX + LONGITUD_SEGMENTO;
-        }
-        return posicionFinalX;
-    }
-    
-    /**
-     * Devuelve la coordenada final en el eje vertical del segmento
-     */
-    public int getPosicionFinalY()
-    {
-        int posicionFinalY = 0;
-        if (direccion == ARRIBA) {
-            posicionFinalY = posicionY - LONGITUD_SEGMENTO;
-        }
-        else {
-            posicionFinalY = posicionY + LONGITUD_SEGMENTO;
-        }
-        return posicionFinalY;
-    }
-    
-    /**
-     * Devuelve la direccion del segmento
+    /*
+     * Devuelve la direccion que tiene el segmento
      */
     public int getDireccion()
     {
-        return direccion * DIFERENCIA_DE_GRADOS_ENTRE_DIRECCIONES;
+        return direccion;
     }
     
-    /**
-     * Para saber si el segmento colisiona o no con otro segmento
+    /*
+     * Devuelve true si el segmento colisiona con el segmento pasado como
+     * parametro; false en otro caso
      */
-    public boolean colisionaCon(Segment segmento)
+    public boolean colisiona(Segment segmento)
     {
-        boolean siColisiona = false;
-        if (getPosicionFinalX() == segmento.posicionX && getPosicionFinalY() == segmento.posicionY) {
-            siColisiona = true;
+        boolean colisiona = false;
+        if ((segmento.getPosicionFinalX() == posicionX) && 
+            (segmento.getPosicionFinalY() == posicionY)) {
+                colisiona = true;
         }
-        return siColisiona;
+        return colisiona;
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

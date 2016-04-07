@@ -7,27 +7,47 @@
  */
 public class SnakeGame
 {
-    // instance variables - replace the example below with your own
-    private int x;
+    // Almacena el lienzo
+    private Canvas lienzo;
+    // Almacena la serpiente
+    private Snake snake;
+    // 
+    private static final int ANCHO_LIENZO = 300;
+    // 
+    private static final int ALTO_LIENZO = 300;
 
-    /**
-     * Constructor for objects of class SnakeGame
-     */
     public SnakeGame()
     {
-        // initialise instance variables
-        x = 0;
-    }
-
-    /**
-     * An example of a method - replace this comment with your own
-     * 
-     * @param  y   a sample parameter for a method
-     * @return     the sum of x and y 
+        lienzo = new Canvas("Snake game", ANCHO_LIENZO, ALTO_LIENZO);      
+    }    
+    
+    /*
+     * Dibuja una serpiente en la pantalla
      */
-    public int sampleMethod(int y)
+    public void drawSnake(  )
     {
-        // put your code here
-        return x + y;
+      snake = new Snake(ANCHO_LIENZO,ALTO_LIENZO);
+      lienzo.erase();
+      snake.dibujar(lienzo);      
+    }
+    
+    /*
+     * Metodo para que se mueva la serpiente
+     */
+    public void animateSnake()
+    {
+        snake.borrar(lienzo);
+        while(snake.mover()) {
+            snake.dibujar(lienzo);
+            lienzo.wait(80);
+            snake.borrar(lienzo);            
+        }
+        snake.dibujar(lienzo);
+        lienzo.drawString("GAME OVER", 120, 147);
+    }
+    
+    public void startGame()
+    {
+        
     }
 }
